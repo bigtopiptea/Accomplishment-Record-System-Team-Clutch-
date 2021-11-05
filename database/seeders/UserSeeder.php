@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@da.gov.ph',
             'password' => Hash::make('admin123'),
+            'position' => 'UNDERSECRETARIES'
         ]);
         $user->assignRole($role1);
 
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             'name' => 'Head of Office User',
             'email' => 'headofoffice@da.gov.ph',
             'password' => Hash::make('headofoffice123'),
+            'position' => 'ASSISTANT SECRETARIES'
         ]);
         $user->assignRole($role2);
 
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
             'name' => 'Staff User',
             'email' => 'staff@da.gov.ph',
             'password' => Hash::make('staff123'),
+            'position' => 'DEPUTY CHIEF OF STAFF'
         ]);
         $user->assignRole($role3);
     }

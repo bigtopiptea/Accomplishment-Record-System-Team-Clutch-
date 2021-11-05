@@ -241,7 +241,7 @@ class TasksController extends Controller
             Tasks::findOrFail($ids)->delete();
 
         }
-        return Redirect::route('tasks.index')->with(['toast' => ['message' => "Account Deleted Successfully!"]]);
+        return Redirect::route('tasks.index')->with(['success'=> "Task Deleted Successfully!"]);
 
         // return redirect()->back()->with(['toast' => ['message' => "Update Successfully!"]]);   
     }

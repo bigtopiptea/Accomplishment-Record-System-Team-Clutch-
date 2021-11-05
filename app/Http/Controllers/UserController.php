@@ -43,11 +43,13 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', Rules\Password::defaults()],
             'selectRole' => ['required'],
+            'position' => ['required']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'position' => $request->position,
             'password' => Hash::make($request->password),
         ]);
 
@@ -71,6 +73,7 @@ class UserController extends Controller
                 'id' => $users->id,
                 'name' => $users->name,
                 'email' => $users->email,
+                'position' => $users->position,
                 'roles' => $users->roles,
             ]
         ]);
@@ -131,6 +134,7 @@ class UserController extends Controller
         $data = FacadesRequest::validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'max:50', 'email', ValidationRule::unique('users')->ignore($users->id)],
+            'position' => ['required'],
             'role' => ['required'],
         ]);
 

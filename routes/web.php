@@ -57,7 +57,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 
-
     //head of office route
     Route::group(['middleware' => ['role:head of office']], function () {
 

@@ -68,7 +68,15 @@
                 <button style="margin-top: -50px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-primary' : 'float-right btn btn-primary disabled'" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Assign Tasks</button>
 
                 <button v-on:click="destroy" style="margin-top: -50px; margin-right: 130px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-danger' : 'float-right btn btn-danger disabled'">Delete Tasks</button>
-
+                    <div v-if="$page.props.success" class="alert alert-success" role="alert" 
+                        style=
+                        "float: right;
+                        width: 20%;
+                        margin-top: -120px;
+                        margin-right: 5px;
+                        font-size: 15px;">
+                        {{$page.props.success}}
+                    </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="flex flex-col">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

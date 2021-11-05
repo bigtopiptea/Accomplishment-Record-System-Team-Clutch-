@@ -108,8 +108,9 @@
                                         <th role="columnheader" class="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">User ID</th>
                                         <th role="columnheader" class="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">Name</th>
                                         <th role="columnheader" class="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">Email</th>
+                                        <th role="columnheader" class="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">Position</th>
                                         <th role="columnheader" class="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">Role</th>
-                                        <th style="padding-left: 25px;" role="columnheader" class="text-gray-600 dark:text-gray-400 font-normal text-left text-sm tracking-normal leading-4">Actions</th>
+                                        <th v-if="$page.props.auth.user.roles[0].name == 'admin'"  style="padding-left: 25px;" role="columnheader" class="text-gray-600 dark:text-gray-400 font-normal text-left text-sm tracking-normal leading-4">Actions</th>
 
                                     </tr>
                                 </thead>
@@ -129,6 +130,7 @@
                                             </div>
                                         </td>                                     
                                         <td class="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">{{user.email}}</td>
+                                        <td class="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">{{user.position}}</td>
                                         <td class="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">{{user.roles[0].name}}</td>
                                         <td v-if="$page.props.auth.user.roles[0].name == 'admin'"  class="flex space-x-4 px-2 py-4 whitespace-nowraptext text-smfont-medium" style="width: 5%;">
                                             <Link :href="route('users.edit', user.id)" class="text-blue-500 p-2 border-transparent cursor-pointer focus:outline-none focus:border-gray-800 focus:shadow-outline-gray" aria-label="Edit Table" role="button">

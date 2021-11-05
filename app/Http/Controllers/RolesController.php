@@ -26,11 +26,17 @@ class RolesController extends Controller
             'role_name'  => ['required']
         ]);
 
+        if(Role::where('name', '=', $request->role_name)->exists()){
+            
+            return Redirect::route('roles.index')->with(['error' => "Role is Already Existed!"]);
+
+        }
         $role = Role::create([
             'name' => $request->role_name,
         ]);
+        
+        return Redirect::route('roles.index')->with(['success' => "Role Created Successfully!"]);
 
-        return Redirect::back()->with(['toast' => ['message' => "Role Added Successfully!"]]);
     }
 
     public function edit($id)
@@ -46,7 +52,7 @@ class RolesController extends Controller
     }
 
     public function update($id, Request $request)
-    
+
     {
         $role = Role::findOrFail($id);
         $role->name = $request->role_name;
@@ -54,7 +60,6 @@ class RolesController extends Controller
         $role->save();
 
         return Redirect::route('roles.index')->with(['toast' => ['message' => 'Role Edit Successfully!']]);
-
     }
     public function destroy(Role $role)
     {

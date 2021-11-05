@@ -51,6 +51,12 @@ class HandleInertiaRequests extends Middleware
             'toast' => function (){
                 return Session::get('toast');
             },
+            'success' => function (){
+                return Session::get('success');
+            },
+            'error' => function (){
+                return Session::get('error');
+            },
             'userRole' => [
                 'userRole' => User::all(),
             ],

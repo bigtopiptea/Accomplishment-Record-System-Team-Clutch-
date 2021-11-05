@@ -48,7 +48,9 @@
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                                         Reference
                                     </label>
-                                    <a class="text-blue-600 cursor-pointer" >{{tasks.reference.substring(0, 8)+ ".." }}
+                                    <p v-if="tasks.reference == 'No Reference Uploaded'" class="text-black " >{{tasks.reference}}
+                                    </p>
+                                    <a v-else class="text-blue-600 cursor-pointer" >{{tasks.reference.substring(0, 15)+ ".." }}
                                     </a>
 <!--                                    <input v-model="form.reference" class="appearance-none block w-full border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="file placeholder="Tasks Name">-->
                                 </div>

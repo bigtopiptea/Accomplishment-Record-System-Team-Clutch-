@@ -22,6 +22,22 @@
                         focus:bg-indigo-700">
                         Add New Role</Link>
                 </div>
+                <div v-if="$page.props.error" class="alert alert-danger mr-5" role="alert" 
+                style=
+                "float: right;
+                width: 20%;
+                margin-top: -15px;
+                font-size: 15px;">
+                   {{$page.props.error}}
+                </div>
+                <div v-if="$page.props.success" class="alert alert-success mr-5" role="alert" 
+                style=
+                "float: right;
+                width: 20%;
+                margin-top: -15px;
+                font-size: 15px;">
+                   {{$page.props.success}}
+                </div>
             </h2>
         </template>
         <div class="py-5">
@@ -92,28 +108,30 @@
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import { Head, usePage, Link } from '@inertiajs/inertia-vue3';
-import { computed } from '@vue/reactivity';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Inertia } from '@inertiajs/inertia';
 import Input from '@/Components/Input.vue';
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
+import Pagination from '@/Components/Pagination.vue';
+
 export default {
     components: {
         BreezeAuthenticatedLayout,
         Head,
         Link,
         Input,
-        BreezeValidationErrors
+        BreezeValidationErrors,
+        Pagination
     },
-    data(){
-        return {
+    props: {
+        roles: Object,
+    },
+    data() {
+       return{
             form: {
                 role_name: ""
             }
-        }
-    },
-    props: {
-        roles: Object.roles,
+       }
     },
     methods: {
         createRole(){
@@ -138,6 +156,6 @@ export default {
                 }
             });
         }
-    }
+    },
 }
 </script>
