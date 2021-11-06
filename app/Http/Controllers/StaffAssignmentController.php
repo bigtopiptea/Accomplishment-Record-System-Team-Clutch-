@@ -29,7 +29,7 @@ class StaffAssignmentController extends Controller
             $assigned_by = $user[3];
 
             if (Assignment::where('id',  $id)->exists()) {
-                return Redirect::route('tasks.index')->with(['error' => 'Task is already assigned in the selected Staff !']);
+                return Redirect::route('tasks.index')->with(['error' => 'Task is already assigned to the selected Staff !']);
             } else {
                 Assignment::create([
                     'task_id' => $id,
