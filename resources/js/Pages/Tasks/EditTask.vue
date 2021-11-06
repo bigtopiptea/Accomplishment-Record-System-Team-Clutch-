@@ -52,16 +52,12 @@
                                     </p>
                                     <a v-else class="text-blue-600 cursor-pointer" >{{tasks.reference.substring(0, 15)+ ".." }}
                                     </a>
-<!--                                    <input v-model="form.reference" class="appearance-none block w-full border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="file placeholder="Tasks Name">-->
                                 </div>
                                 <div class="w-full md:w-1/2 px-3" style="margin-left:400px">
                                     <BreezeButton class="ml-0 float-right" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                         Submit
                                     </BreezeButton>
                                 </div>
-                                <!-- <div v-else>
-                                    <h1 class="text-red-600">Overdue</h1>
-                                </div> -->
                             </div>
                         </form>
                     </div>

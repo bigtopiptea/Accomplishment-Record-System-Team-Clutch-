@@ -108,9 +108,9 @@
 
             <!-- Page Content -->
             <main>
-                <div v-cloak class="h-full">
-                    <Toast :toast="$page.props.toast"></Toast>
-                </div>
+                <!-- <div v-cloak class="h-full">
+                    <Toast :toast="$page.props.success"></Toast>
+                </div> -->
                 <slot />
             </main>
         </div>

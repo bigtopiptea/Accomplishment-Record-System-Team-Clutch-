@@ -10,7 +10,13 @@
                 Create User
             </Link>
         </template>
-     
+        <transition name="slide-fade">
+            <div v-if="$page.props.success && visible" class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-green-500 text-white" >
+                <span class="inline-block align-middle mr-8 whitespace-nowrap	">
+                    {{$page.props.success}}
+                </span>
+            </div>
+        </transition>
         <!-- User List-->
         <div class="py-5">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="margin-top: 20px;">
@@ -179,6 +185,7 @@ export default {
     },
     data(){
         return {
+            visible: false,
             user: ""
         }
     },
@@ -190,7 +197,18 @@ export default {
         Can,
         Pagination
     },
+    mounted() {
+        this.show();
+
+    },
     methods: {
+        show: function (){
+           let v = this;
+           v.visible = true;
+           setTimeout(function (){
+               return v.visible = false;
+           }, 1500);
+        },
         destroy(id){
             Swal.fire({
                 title: 'Are you Sure?',
@@ -203,11 +221,9 @@ export default {
             }).then((result) => {
                 if(result.isConfirmed){
                 Inertia.delete(`/users/${id}`);
+                window.location.reload();
+
                 }
-                // swal.fire(
-                //     'Deleted!',
-                //     'Your '
-                // );
             });
 
         },

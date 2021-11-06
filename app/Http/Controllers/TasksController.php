@@ -65,7 +65,7 @@ class TasksController extends Controller
 
         $upload_file->delete();
 
-        return Redirect::back()->with(['toast' => ['message' => 'Submitted Tasks Change Status Success!']]);
+        return Redirect::back()->with(['success' => 'Tasks returned to the Staff !']);
     }
 
     public function updateStatus1($id)
@@ -78,7 +78,7 @@ class TasksController extends Controller
 
         $assignment->save();
 
-        return Redirect::back()->with(['toast' => ['message' => 'Submitted Tasks Change Status Success!']]);
+        return Redirect::back()->with(['success' => 'Submitted Tasks Change Status Success!']);
     }
 
 
@@ -93,7 +93,7 @@ class TasksController extends Controller
 
         $assignment->save();
 
-        return Redirect::back()->with(['toast' => ['message' => 'Submitted Tasks Change Status Success!']]);
+        return Redirect::back()->with(['success' => 'Submitted Tasks Change Status Success!']);
     }
     public function updateStatus3($id, Request $request)
     {
@@ -106,7 +106,7 @@ class TasksController extends Controller
 
         $assignment->save();
 
-        return Redirect::back()->with(['toast' => ['message' => 'Submitted Tasks Change Status Success!']]);
+        return Redirect::back()->with(['success' => 'Submitted Tasks Change Status Success!']);
     }
 
     public function create()
@@ -172,7 +172,7 @@ class TasksController extends Controller
                 'reference' => $no_reference
             ]);
         }
-        return Redirect::route('tasks.index')->with(['toast' => ['message' => 'New Task is Created!']]);
+        return Redirect::route('tasks.index')->with(['success' => 'New Task is Created !']);
     }
 
     public function edit($id)
@@ -228,7 +228,7 @@ class TasksController extends Controller
 
         $tasks->save();
 
-        return Redirect::route('tasks.index')->with(['toast' => ['message' => "Update Successfully!"]]);
+        return Redirect::route('tasks.index')->with(['success'  => "Update Successfully !"]);
     }
 
     public function destroy($id)
@@ -238,10 +238,11 @@ class TasksController extends Controller
 
         foreach ($single_id as $ids) {
 
-            Tasks::findOrFail($ids)->delete();
+            Tasks::findOrFail($ids)
+                ->delete();
 
         }
-        return Redirect::route('tasks.index')->with(['success'=> "Task Deleted Successfully!"]);
+        return Redirect::route('tasks.index')->with(['success' => 'Task Deleted Successfully !']);
 
         // return redirect()->back()->with(['toast' => ['message' => "Update Successfully!"]]);   
     }

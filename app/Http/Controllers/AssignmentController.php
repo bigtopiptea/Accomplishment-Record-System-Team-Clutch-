@@ -78,7 +78,7 @@ class AssignmentController extends Controller
             ]);
         }
 
-        return Redirect::route('homework.index')->with(['toast' => ['message' => 'The Task is submitted to the Head of Office!']]);
+        return Redirect::route('homework.index')->with(['success' => 'The Task is submitted to the Head of Office!']);
     }
 
     public function edit($id, Tasks $tasks)

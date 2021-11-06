@@ -6,6 +6,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Tasks
             </h2>
+            
             <Link v-if="$page.props.auth.user.roles[0].name == 'head of office'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full absolute" style="top: 82px; right: 50px" :href="route('tasks.create')">
                 Create Tasks
             </Link>
@@ -17,11 +18,10 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Assign Tasks</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
                         </div>
                         <div class="modal-body">
                             <BreezeValidationErrors class="mb-4" />
-                            <form @submit="submitTasks">
+                            <form @submit="submitTasks" >
                                 <div class="mb-3">
                                     <input type="text" name="taskIds" class="form-control border border-gray-200 rounded hidden" id="recipient-name" v-model="taskIds">
                                 </div>
@@ -64,25 +64,34 @@
                 </div>
                 <Pagination :links="tasks.links" class="float-right" style="margin-top: -56px; margin-right: 350px"></Pagination>
                 <!-- end search -->
+              
                 <!-- assign task button -->
                 <button style="margin-top: -50px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-primary' : 'float-right btn btn-primary disabled'" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Assign Tasks</button>
-
-                <button v-on:click="destroy" style="margin-top: -50px; margin-right: 130px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-danger' : 'float-right btn btn-danger disabled'">Delete Tasks</button>
-                    <div v-if="$page.props.success" class="alert alert-success" role="alert" 
-                        style=
-                        "float: right;
-                        width: 20%;
-                        margin-top: -120px;
-                        margin-right: 5px;
-                        font-size: 15px;">
-                        {{$page.props.success}}
-                    </div>
+               
+                <button @click.="destroy" style="margin-top: -50px; margin-right: 130px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-danger' : 'float-right btn btn-danger disabled'">Delete Tasks</button>
+                    
+                    <transition name="slide-fade">
+                        <div v-if="$page.props.error && visible"  class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-red-500 text-white" >
+                        
+                            <span class="inline-block align-middle mr-8 whitespace-normal">
+                                <b class="capitalize">Oopss! </b> {{$page.props.error}}
+                            </span>
+                        </div>
+                    </transition>
+                     <transition name="slide-fade">
+                        <div v-if="$page.props.success && visible"  class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-green-500 text-white" >
+                        
+                            <span class="inline-block align-middle mr-8 whitespace-normal	">
+                                <b class="capitalize">Excellent! </b>{{$page.props.success}}
+                            </span>
+                        </div>
+                    </transition>
+                
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="flex flex-col">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-
                                     <table v-if="(typeof tasks.data[0] !== 'undefined')" class="min-w-full divide-y divide-gray-200">
                                         <thead class="bg-gray-50">
                                             <tr>
@@ -198,14 +207,15 @@ export default {
     props: {
         tasks: Object,
         users: Object,
-        test_task: Object,
     },
     data(){
         return {
             task: "",
             taskArray: [],
             isCheckAll: false,
-            selectedUserId: ""
+            selectedUserId: "",
+            visible: false,
+
         }
     },
     computed: {
@@ -256,9 +266,19 @@ export default {
             task.isSelected = false;
             return task;
         });
+
+        this.show();
+
     },
 
     methods: {
+         show: function (){
+           let v = this;
+           v.visible = true;
+           setTimeout(function (){
+               return v.visible = false;
+           }, 1500);
+        },
         destroy() {
               Swal.fire({
                 title: 'Are you Sure?',
@@ -271,11 +291,7 @@ export default {
             }).then((result) => {
                 if(result.isConfirmed){
                     Inertia.delete('tasks/'+ this.taskIds);
-                    isCheckAll = "";
-                    taskAssignedBy = "";
-                    taskDue = "";
-                    taskName = "";
-                    taskIds = "";
+                    window.location.reload();
 
                 }
             });
@@ -297,12 +313,24 @@ export default {
                 taskAssignedBy: this.taskAssignedBy,
                 staff_name: this.selectedUserId
             });
-            isCheckAll = "";
-            taskAssignedBy = "";
-            taskDue = "";
-            taskName = "";
-            taskIds = "";
         },
     },
 };
 </script>
+
+<style>
+    /* Enter and leave animations can use different */
+    /* durations and timing functions.              */
+    .slide-fade-enter-active {
+    transition: all .5s ease;
+    }
+    .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+    }
+
+</style>

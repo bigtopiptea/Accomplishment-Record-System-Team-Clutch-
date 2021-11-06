@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME)->with(['toast' => ['message' => 'Login Successfully!']]);
+        return redirect()->intended(RouteServiceProvider::HOME)->with(['success'  => 'Login Successfully!']);
     }
 
     /**

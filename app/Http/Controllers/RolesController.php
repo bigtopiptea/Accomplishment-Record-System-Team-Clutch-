@@ -59,11 +59,11 @@ class RolesController extends Controller
 
         $role->save();
 
-        return Redirect::route('roles.index')->with(['toast' => ['message' => 'Role Edit Successfully!']]);
+        return Redirect::route('roles.index')->with(['success' => 'Role Edit Successfully!']);
     }
     public function destroy(Role $role)
     {
         $role->delete();
-        return Redirect::route('roles.index')->with(['toast' => ['message' => "Role Deleted Successfully!"]]);
+        return Redirect::route('roles.index')->with(['success' => "Role Deleted Successfully!"]);
     }
 }

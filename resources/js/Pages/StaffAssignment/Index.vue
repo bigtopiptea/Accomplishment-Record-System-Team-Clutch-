@@ -7,6 +7,13 @@
                 Assigned Tasks
             </h2>
         </template>
+        <transition name="slide-fade">
+                    <div v-if="$page.props.success && visible" class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-green-500 text-white" >
+                        <span class="inline-block align-middle mr-8 whitespace-normal	">
+                            {{$page.props.success}}
+                        </span>
+                    </div>
+        </transition>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -107,6 +114,25 @@ export default {
     },
     props: {
         assignments: Object
-    }
+    },
+    data() {
+       return{
+            visible: false,
+
+       }
+    },
+    mounted() {
+        this.show();
+
+    },
+    methods: {
+        show: function (){
+           let v = this;
+           v.visible = true;
+           setTimeout(function (){
+               return v.visible = false;
+           }, 1500);
+        },
+      },
 }
 </script>

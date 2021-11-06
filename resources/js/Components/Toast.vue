@@ -1,14 +1,10 @@
 <template>
     <transition name="slide-fade">
-        <div v-if="toast && visible" class="absolute flex max-w-xs  mt-4 mr-4 top-60 right-0 rounded shadow p-4" style="background-color: #47d78a;">
-            <div class="mr-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </div>
-                <div class="flex-1 text-grey-800 text-white">
-                    {{toast.message}}
-                </div>
+        <div v-if="toast && visible" class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-green-500 text-white" >
+            <span class="inline-block align-middle mr-8 whitespace-nowrap	">
+                <b class="capitalize">Excellent! </b>{{toast.message}}
+
+            </span>
         </div>
     </transition>
 </template>

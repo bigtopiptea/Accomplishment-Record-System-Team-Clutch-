@@ -55,7 +55,7 @@ class UserController extends Controller
 
         $user->assignRole($request->selectRole);
 
-        return Redirect::route('users.index', $user)->with(['toast' => ['message' => 'Account Created Successfully!']]);
+        return Redirect::route('users.index', $user)->with(['success'  => 'Account Created Successfully!']);
     }
 
     public function edit($id, User $users)
@@ -139,15 +139,13 @@ class UserController extends Controller
         ]);
 
         $users->update($data);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-        $users->assignRole($request->role);
 
-        return Redirect::route('users.index')->with(['toast' => ['message' => "Account Updated Successfully!"]]);
+        return Redirect::route('users.index')->with(['success' => "Account Updated Successfully!"]);
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return Redirect::route('users.index')->with(['toast' => ['message' => "Account Deleted Successfully!"]]);
+        return Redirect::route('users.index')->with(['success' => "Account Deleted Successfully!"]);
     }
 }

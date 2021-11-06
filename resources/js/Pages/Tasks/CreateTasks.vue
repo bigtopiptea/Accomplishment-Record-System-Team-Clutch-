@@ -102,13 +102,13 @@ export default {
             this.file = event.target.files[0];
         },
         createTasks() {
-            console.log(this.file);
             Inertia.post('/tasks', {
                     task_name: this.task_name,
                     task_requirements: this.task_requirements,
                     task_due: this.task_due,
                     file: this.file,
             });
+            
         },
 },
 };

@@ -7,6 +7,14 @@
                 Tasks Submissions
             </h2>
         </template>
+            <transition name="slide-fade">
+                <div v-if="$page.props.success && visible"  class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-green-500 text-white" >
+                
+                    <span class="inline-block align-middle mr-8 whitespace-normal">
+                       {{$page.props.success}}
+                    </span>
+                </div>
+            </transition>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" >
@@ -40,7 +48,7 @@
                                         <p class="mt-2 text-gray-600">
                                             Submitted File(s):
                                         </p>
-                                        <a :href="route('tasks.download1', user.storage_path)" class="text-blue-500"> {{user.storage_path}}</a>
+                                        <a :href="route('tasks.download1', user.storage_path)" class="text-blue-500"> {{user.storage_path.substring(0, 15)+ ".."}}</a>
                                     </div>
                                     <div class="mt-4">
                                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-4 text-center" >
@@ -105,17 +113,29 @@ export default {
     },
     data(){
         return {
-        taskArray: []
-
+        taskArray: [],
+        visible: false,
         }
     },
     methods: {
         destroy(id) {
             Inertia.delete(`/homework/${id}`);
+            window.location.reload();
+
         },
         updateStatus(){
             this.form.put(route("homework.update1", this.userUploads.id));
-        }
-    }
+        },
+        show: function (){
+           let v = this;
+           v.visible = true;
+           setTimeout(function (){
+               return v.visible = false;
+           }, 1500);
+        },
+    },
+    mounted() {
+        this.show();
+    },
 }
 </script>

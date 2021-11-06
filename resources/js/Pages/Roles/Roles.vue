@@ -6,38 +6,38 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Roles
                 <div class="-mt-2 relative text-gray-700 w-1/4 float-right">
-                    <input v-model="form.role_name" required class="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline" type="text"/>
-                    <Link @click="createRole()"
-                        class="text-sm
-                        absolute
-                        inset-y-0
-                        right-0
-                        flex items-center
-                        px-4
-                        font-bold
-                        text-white
-                        bg-blue-500
-                        rounded-r-lg
-                        hover:bg-indigo-500
-                        focus:bg-indigo-700">
-                        Add New Role</Link>
+                    <form @submit="createRole">
+                        <input v-model="form.role_name" required class="w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline" type="text"/>
+                        <button 
+                            class="text-sm
+                            absolute
+                            inset-y-0
+                            right-0
+                            flex items-center
+                            px-4
+                            font-bold
+                            text-white
+                            bg-blue-500
+                            rounded-r-lg
+                            hover:bg-indigo-500
+                            focus:bg-indigo-700">
+                            Add New Role</button>
+                    </form>
                 </div>
-                <div v-if="$page.props.error" class="alert alert-danger mr-5" role="alert" 
-                style=
-                "float: right;
-                width: 20%;
-                margin-top: -15px;
-                font-size: 15px;">
-                   {{$page.props.error}}
-                </div>
-                <div v-if="$page.props.success" class="alert alert-success mr-5" role="alert" 
-                style=
-                "float: right;
-                width: 20%;
-                margin-top: -15px;
-                font-size: 15px;">
-                   {{$page.props.success}}
-                </div>
+                 <transition name="slide-fade">
+                    <div v-if="$page.props.error && visible" class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-red-500 text-white" >
+                        <span class="inline-block align-middle mr-8 whitespace-nowrap	">
+                            {{$page.props.error}}
+                        </span>
+                    </div>
+                </transition>
+                <transition name="slide-fade">
+                    <div v-if="$page.props.success && visible" class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-green-500 text-white" >
+                        <span class="inline-block align-middle mr-8 whitespace-nowrap	">
+                            {{$page.props.success}}
+                        </span>
+                    </div>
+                </transition>
             </h2>
         </template>
         <div class="py-5">
@@ -130,16 +130,31 @@ export default {
        return{
             form: {
                 role_name: ""
-            }
+            },
+            visible: false,
+
        }
     },
+    mounted() {
+        this.show();
+
+    },
     methods: {
+        show: function (){
+           let v = this;
+           v.visible = true;
+           setTimeout(function (){
+               return v.visible = false;
+           }, 1500);
+        },
         createRole(){
             let data = new FormData();
             data.append("role_name", this.form.role_name);
             Inertia.post('/roles', data)
             this.form.role_name = "";
+            window.location.reload();
         },
+        
         deleteRole(id)
         {
             Swal.fire({

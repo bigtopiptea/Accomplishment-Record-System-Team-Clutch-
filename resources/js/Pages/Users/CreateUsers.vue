@@ -8,6 +8,7 @@
             </h2>
         </template>
 
+        
     <div class="py-12">
             <div style="width: 70%;" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                  <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -126,8 +127,6 @@ export default {
             data.append("password", this.form.password);
             data.append("selectRole", this.form.selectRole);
             data.append("position", this.form.position);
-
-
             Inertia.post('/users', data)
         },
     },
