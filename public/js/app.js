@@ -17249,6 +17249,7 @@ __webpack_require__.r(__webpack_exports__);
         taskAssignedBy: this.taskAssignedBy,
         staff_name: this.selectedUserId
       });
+      window.location.reload();
     }
   }
 });
