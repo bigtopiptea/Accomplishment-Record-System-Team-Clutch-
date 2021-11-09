@@ -17270,7 +17270,8 @@ __webpack_require__.r(__webpack_exports__);
         taskDue: this.taskDue,
         taskAssignedBy: this.taskAssignedBy,
         staff_name: this.selectedUserId
-      }); // window.location.reload();
+      });
+      window.location.reload();
     }
   }
 });

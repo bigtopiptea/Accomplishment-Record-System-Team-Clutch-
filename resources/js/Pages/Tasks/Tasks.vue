@@ -342,7 +342,7 @@ export default {
                 taskAssignedBy: this.taskAssignedBy,
                 staff_name: this.selectedUserId,
             });
-            // window.location.reload();
+            window.location.reload();
         },
     },
 };
