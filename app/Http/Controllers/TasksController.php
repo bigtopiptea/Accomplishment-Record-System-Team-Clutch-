@@ -30,8 +30,20 @@ class TasksController extends Controller
 
         Auth::user()->roles->pluck('name');
 
-        $users = User::role('staff')
-            ->get();
+        // $users = User::role('staff')
+        //     ->get();
+        
+        $users = User::when($request->user, function ($query, $user){
+            $query->where('name', 'Like', '%' . $user . '$');
+        })
+        ->role('staff')
+        ->select([
+            'id',
+            'name',
+        ])
+        ->with('roles')
+        ->get();
+        
 
         $tasks = Tasks::when($request->task, function ($query, $task) {
             $query->where('id', 'Like', '%' . $task . '%');
@@ -46,6 +58,8 @@ class TasksController extends Controller
             ])
             ->with('uploadFiles')
             ->paginate(5);
+
+        
 
         return Inertia::render('Tasks/Tasks', ['tasks' => $tasks, 'users' => $users]);
     }

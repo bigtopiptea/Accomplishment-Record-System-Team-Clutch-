@@ -9,8 +9,10 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use App\Rules\OnlyDaEmail;
 
 class RegisteredUserController extends Controller
 {
@@ -34,10 +36,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-
+        $message = ['email.regex' => 'Only da.gov.ph'];
+        
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new OnlyDaEmail],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'position' => ['required'],
         ]);
@@ -46,11 +49,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'position' => $request->position
+            'position' => $request->position,
         ]);
 
         $user->assignRole("staff");
 
+   
         event(new Registered($user));
 
         Auth::login($user);

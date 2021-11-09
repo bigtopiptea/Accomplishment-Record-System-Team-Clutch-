@@ -92,8 +92,8 @@
                                         </label>
                                         <a v-if="(typeof assignment.upload_files[0] != 'undefined')" :href="route('tasks.download2', assignment.upload_files[0].storage_path)" class="text-blue-500"> {{assignment.upload_files[0].storage_path}}</a>
                                     </div>
-                                    <div  class="w-full" style="margin-top:20px; margin-right: 20px;">
-                                        <BreezeButton class="ml-0 float-right" >
+                                    <div class="w-full" style="margin-top:20px; margin-right: 20px;">
+                                        <BreezeButton  class="ml-0 float-right" >
                                             Submit
                                         </BreezeButton>
                                     </div>

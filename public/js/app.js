@@ -17146,6 +17146,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       task: "",
+      user: '',
+      tags: [],
       taskArray: [],
       isCheckAll: false,
       selectedUserId: "",
@@ -17200,9 +17202,24 @@ __webpack_require__.r(__webpack_exports__);
       task.isSelected = false;
       return task;
     });
+    this.tags = this.users;
     this.show();
   },
   methods: {
+    addTag: function addTag(event) {
+      if (event.code == 'Comma' || event.code == 'Enter') {
+        event.preventDefault();
+        var val = event.target.value.trim();
+
+        if (val.length > 0) {
+          this.tags.push(val);
+          event.target.value = '';
+        }
+      }
+    },
+    removeTag: function removeTag(index) {
+      this.tags.splice(index, 1);
+    },
     show: function show() {
       var v = this;
       v.visible = true;
@@ -17233,6 +17250,11 @@ __webpack_require__.r(__webpack_exports__);
         task: this.task
       }));
     },
+    searchuser: function searchuser() {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.replace(this.route('tasks.index', {
+        user: this.user
+      }));
+    },
     checkAll: function checkAll() {
       var _this2 = this;
 
@@ -17248,8 +17270,7 @@ __webpack_require__.r(__webpack_exports__);
         taskDue: this.taskDue,
         taskAssignedBy: this.taskAssignedBy,
         staff_name: this.selectedUserId
-      });
-      window.location.reload();
+      }); // window.location.reload();
     }
   }
 });
@@ -21555,7 +21576,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* KEYED_FRAGMENT */
       ))], 512
       /* NEED_PATCH */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedUserId]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_BreezeButton, {
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.selectedUserId]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"tag-input\">\r\n                                    <div v-for=\"(tag, index) in tags\" :key=\"tag\" class=\"tag-input__tag bg-green-200 text-green-700\" >\r\n                                        <span @click=\"removeTag(index)\">x</span>\r\n                                        {{tag.name}}\r\n                                    </div>\r\n                                </div>\r\n                                <input @keydown=\"addTag\" class=\"mt-4 appearance-none block w-full border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white\" id=\"grid-first-name\" type=\"text\" placeholder=\"Enter Staff Name\">\r\n                                <div class=\"bg-white shadow p-2 flex border-b border-gray-200 sm:rounded-lg w-1/4 mb-2\" >\r\n                                    <span class=\"w-auto flex justify-end items-center text-gray-500 p-2\">\r\n                                        <i class=\"fas fa-search\"></i>\r\n                                    </span>\r\n                                    <input v-model=\"user\" @keyup=\"searchUser\" class=\"w-full rounded p-2 border-none\" type=\"text\" placeholder=\"Search\">\r\n                                </div>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_BreezeButton, {
         "class": "ml-0"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -23582,7 +23603,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n    /* Enter and leave animations can use different */\r\n    /* durations and timing functions.              */\n.slide-fade-enter-active {\r\n    transition: all .5s ease;\n}\n.slide-fade-leave-active {\r\n    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\r\n    /* .slide-fade-leave-active below version 2.1.8 */ {\r\n    transform: translateX(10px);\r\n    opacity: 0;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n    /* Enter and leave animations can use different */\r\n    /* durations and timing functions.              */\n.slide-fade-enter-active {\r\n    transition: all .5s ease;\n}\n.slide-fade-leave-active {\r\n    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);\n}\n.slide-fade-enter, .slide-fade-leave-to\r\n    /* .slide-fade-leave-active below version 2.1.8 */ {\r\n    transform: translateX(10px);\r\n    opacity: 0;\n}\n.tag-input {\r\n        width: 100%;\r\n        border: 1px solid #eee;\r\n        font-size: 0.9em;\r\n        height: 100px;\r\n        box-sizing: border-box;\r\n        padding: 0 10px;\n}\n.tag-input__tag {\r\n        height: 30px;\r\n        float: left;\r\n        margin-right: 10px;\r\n        margin-top: 10px;\r\n        line-height: 30px;\r\n        padding: 0 5px;\r\n        border-radius: 5px;\n}\n.tag-input__tag > span {\r\n        cursor: pointer;\r\n        opacity: 0.75;\n}\n.tag-input__text {\r\n        outline: none;\r\n        font-size: 0.9em;\r\n        line-height: 35px;\r\n        background: none;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

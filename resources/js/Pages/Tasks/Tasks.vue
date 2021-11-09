@@ -42,7 +42,19 @@
                                                 </option>
                                         </select>
                                 </div>
-
+                                <!-- <div class="tag-input">
+                                    <div v-for="(tag, index) in tags" :key="tag" class="tag-input__tag bg-green-200 text-green-700" >
+                                        <span @click="removeTag(index)">x</span>
+                                        {{tag.name}}
+                                    </div>
+                                </div>
+                                <input @keydown="addTag" class="mt-4 appearance-none block w-full border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Enter Staff Name">
+                                <div class="bg-white shadow p-2 flex border-b border-gray-200 sm:rounded-lg w-1/4 mb-2" >
+                                    <span class="w-auto flex justify-end items-center text-gray-500 p-2">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                    <input v-model="user" @keyup="searchUser" class="w-full rounded p-2 border-none" type="text" placeholder="Search">
+                                </div>-->
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <BreezeButton class="ml-0">
@@ -68,7 +80,7 @@
                 <!-- assign task button -->
                 <button style="margin-top: -50px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-primary' : 'float-right btn btn-primary disabled'" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Assign Tasks</button>
                
-                <button @click.="destroy" style="margin-top: -50px; margin-right: 130px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-danger' : 'float-right btn btn-danger disabled'">Delete Tasks</button>
+                <button @click="destroy" style="margin-top: -50px; margin-right: 130px;" type="button" :class="hasTaskSelected ? 'float-right btn btn-danger' : 'float-right btn btn-danger disabled'">Delete Tasks</button>
                     
                     <transition name="slide-fade">
                         <div v-if="$page.props.error && visible"  class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-red-500 text-white" >
@@ -211,11 +223,12 @@ export default {
     data(){
         return {
             task: "",
+            user: '',
+            tags: [],
             taskArray: [],
             isCheckAll: false,
             selectedUserId: "",
             visible: false,
-
         }
     },
     computed: {
@@ -266,13 +279,27 @@ export default {
             task.isSelected = false;
             return task;
         });
+        this.tags = this.users;
 
         this.show();
-
     },
 
     methods: {
-         show: function (){
+        addTag(event){
+            if(event.code == 'Comma' || event.code == 'Enter'){
+                event.preventDefault();
+                var val = event.target.value.trim();
+
+                if(val.length > 0){
+                    this.tags.push(val);
+                    event.target.value = '';
+                }
+            }
+        },
+        removeTag(index){
+            this.tags.splice(index, 1);
+        },
+        show: function (){
            let v = this;
            v.visible = true;
            setTimeout(function (){
@@ -292,12 +319,14 @@ export default {
                 if(result.isConfirmed){
                     Inertia.delete('tasks/'+ this.taskIds);
                     window.location.reload();
-
                 }
             });
         },
         search() {
             Inertia.replace(this.route('tasks.index', {task: this.task}));
+        },
+        searchuser(){
+            Inertia.replace(this.route('tasks.index', {user: this.user}))
         },
         checkAll() {
             this.taskArray.map(task => {
@@ -311,10 +340,9 @@ export default {
                 taskName: this.taskName,
                 taskDue: this.taskDue,
                 taskAssignedBy: this.taskAssignedBy,
-                staff_name: this.selectedUserId
+                staff_name: this.selectedUserId,
             });
-            window.location.reload();
-
+            // window.location.reload();
         },
     },
 };
@@ -335,4 +363,34 @@ export default {
     opacity: 0;
     }
 
+    .tag-input {
+        width: 100%;
+        border: 1px solid #eee;
+        font-size: 0.9em;
+        height: 100px;
+        box-sizing: border-box;
+        padding: 0 10px;
+    }
+
+    .tag-input__tag {
+        height: 30px;
+        float: left;
+        margin-right: 10px;
+        margin-top: 10px;
+        line-height: 30px;
+        padding: 0 5px;
+        border-radius: 5px;
+    }
+
+    .tag-input__tag > span {
+        cursor: pointer;
+        opacity: 0.75;
+    }
+
+    .tag-input__text {
+        outline: none;
+        font-size: 0.9em;
+        line-height: 35px;
+        background: none;
+    }
 </style>
