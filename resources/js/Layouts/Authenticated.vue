@@ -17,9 +17,12 @@
                                 <BreezeNavLink :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                                     Dashboard
                                 </BreezeNavLink>
-                                <BreezeNavLink v-if="$page.props.auth.user.roles[0].name == 'admin' || $page.props.auth.user.roles[0].name == 'head of office'" :href="route('users.index')" :active="route().current('users.index')">
+                                <BreezeNavLink v-if="$page.props.auth.user.roles[0].name == 'admin'" :href="route('users.index')" :active="route().current('users.index')">
                                     Users
-                                </BreezeNavLink>   
+                                </BreezeNavLink>  
+                                <BreezeNavLink v-if="$page.props.auth.user.roles[0].name == 'head of office' || $page.props.auth.user.roles[0].name == 'head of office'" :href="route('staff.list')" :active="route().current('staff.list')">
+                                    Staff List
+                                </BreezeNavLink>  
                                 <BreezeNavLink v-if="$page.props.auth.user.roles[0].name == 'admin'" :href="route('roles.index')" :active="route().current('roles.index')">
                                     Roles
                                 </BreezeNavLink> 

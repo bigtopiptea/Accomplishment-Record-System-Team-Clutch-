@@ -67,6 +67,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('tasks', [TasksController::class, 'store'])->name('tasks.store');
         Route::delete('tasks/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');
         Route::get('download', [TasksController::class, 'download'])->name('tasks.download');
+        Route::get('listofstaff', [UserController::class, 'listofstaff'])->name('staff.list');
+
     
         Route::get('download1/{file_name}', function($file_name = null)
         {

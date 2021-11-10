@@ -17,6 +17,15 @@ use Illuminate\Validation\Rule as ValidationRule;
 
 class UserController extends Controller
 {
+
+    public function listofstaff()
+    {
+        $staff = User::role('staff')
+            ->get();
+        
+        return Inertia::render('Users/StaffList', ['staff' => $staff]);
+    }
+
     public function index(Request $request)
 
     {
@@ -140,6 +149,7 @@ class UserController extends Controller
             'role' => ['required'],
         ]);
 
+        
         $users->update($data);
 
         DB::table('model_has_roles')->where('model_id', $id)->delete();
