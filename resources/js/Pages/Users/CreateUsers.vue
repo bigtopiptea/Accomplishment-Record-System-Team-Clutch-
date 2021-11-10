@@ -63,9 +63,8 @@
                                     </label>
                                     <select v-model="form.selectRole" style="height: 55px;" class="appearance-none border border-gray-200 rounded w-full py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-purple-500">
                                         <option disabled value="">Please select one</option>
-                                            <option>Admin</option>
-                                            <option>Head of Office</option>
-                                            <option>Staff</option>
+                                        <option v-for="role in roles" :key="role.id">{{role.name}}</option>
+                                      
                                     </select>      
                                 </div>
                                 <div class="w-full md:w-1/2 px-3" style="margin-top:20px;">

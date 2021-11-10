@@ -6,9 +6,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Users
             </h2>
-            <Link v-if="$page.props.auth.user.roles[0].name == 'admin'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full absolute" style="top: 82px; right: 50px" :href="route('users.create')">
+            <!-- <Link v-if="$page.props.auth.user.roles[0].name == 'admin'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full absolute" style="top: 82px; right: 50px" :href="route('users.create')">
                 Create User
-            </Link>
+            </Link> -->
         </template>
         <transition name="slide-fade">
             <div v-if="$page.props.success && visible" class="absolute flex max-w-xs mt-4 mr-4 top-60 right-0 rounded shadow p-4 bg-green-500 text-white" >

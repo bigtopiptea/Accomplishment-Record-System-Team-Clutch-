@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ModelHasRole;
 use App\Models\User;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
@@ -122,6 +123,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => ['required', 'max:50', 'email', ValidationRule::unique('users')->ignore($users->id)],
         ]);
+        
         $users->update($data);
 
         return Redirect::route('users.index')->with(['toast' => ['message' => "Account Updated Successfully!"]]);
@@ -139,6 +141,11 @@ class UserController extends Controller
         ]);
 
         $users->update($data);
+
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
+
+        $users->assignRole($request->role);
+
 
         return Redirect::route('users.index')->with(['success' => "Account Updated Successfully!"]);
     }
